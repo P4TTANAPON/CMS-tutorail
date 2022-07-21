@@ -14,8 +14,11 @@
             {{isset($category)?"Edit Category":"Create Category"}}
         </div>
         <div class="card-body">
-            <form action="{{isset($category)? route(categories.update) : route(categories.store)}}" method="post">
+            <form action="{{isset($category)? route('categories.update',$category->id) : route('categories.store')}}" method="post">
                 @csrf
+                @if (isset($category))
+                    @method('put');
+                @endif
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="name" value="{{isset($category)? $category->name : "" }}" class="form-control">
