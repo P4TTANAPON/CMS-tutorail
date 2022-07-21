@@ -42,6 +42,7 @@ class CategoryController extends Controller
         Category::create([
             'name'=>$request->name
         ]);
+        Session()->flash('success','Create caregory complete.');
         return redirect(route('categories.index'));
     }
 
