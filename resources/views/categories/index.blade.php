@@ -8,24 +8,48 @@
             Category
         </div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <th>Name</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                        <tr>
-                            <td>{{$category->name}}</td>
-                            <td>
-                                <a href="{{route('categories.edit',$category->id)}}" class="btn btn-info btn-sm">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            @if ($categories->count()>0)
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                            <tr>
+                                <td>{{$category->name}}</td>
+                                <td>
+                                    <a href="{{route('categories.edit',$category->id)}}" class="btn btn-info btn-sm">Edit</a>
+                                </td>
+                                <td>
+                                    <form class="delete_form" action="{{route('categories.destroy',$category->id)}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="submit" name="" value="Delete" class="btn btn-danger btn-sm">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <h3 class="text-center">No Category</h3>
+            @endif
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.delete_form').on('submit',function(){
+                if(confirm("Are you want to delete data?")){
+                    return true;
+                }else{
+                    return false;
+                }
+            })
+        })
+    </script>
 @endsection
 
 

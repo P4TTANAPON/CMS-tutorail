@@ -42,7 +42,7 @@ class CategoryController extends Controller
         Category::create([
             'name'=>$request->name
         ]);
-        Session()->flash('success','Create caregory complete.');
+        Session()->flash('success','Create category complete.');
         return redirect(route('categories.index'));
     }
 
@@ -80,7 +80,7 @@ class CategoryController extends Controller
         $category->update([
             'name'=>$request->name
         ]);
-        Session()->flash('success','Update caregory complete.');
+        Session()->flash('success','Update category complete.');
         return redirect(route('categories.index'));
     }
 
@@ -90,8 +90,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        Session()->flash('success','Delete category complete.');
+        return redirect(route('categories.index'));
     }
 }
