@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -34,7 +35,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $this->validate($request,[
+            'name'=>'required|unique:categories'
+        ]);
+        //insert data to db
+        Category::create([
+            'name'=>$request->name
+        ]);
+        return redirect(route('categories.index'));
     }
 
     /**
