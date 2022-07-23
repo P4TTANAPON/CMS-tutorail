@@ -11,22 +11,25 @@
             </div>
         @endif
         <div class="card-header">
-            Create Post
+            {{isset($post)? 'Edit Post': 'Create Post'}}
         </div>
         <div class="card-body">
-            <form action="{{route('posts.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{isset($post)? route('posts.update',$post->id):route('posts.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
+                @if(isset($post))
+                    @method('put')
+                @endif
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" value="" class="form-control">
+                    <input type="text" name="title" value="{{isset($post)? $post->title : "" }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea name="description" id="" cols="4" rows="4" class="form-control"></textarea>
+                    <textarea name="description" id="" cols="4" rows="4" class="form-control">{{isset($post)? $post->description : "" }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <input id="x" value="" type="hidden" name="content">
+                    <input id="x" value="{{isset($post)? $post->content : "" }}" type="hidden" name="content">
                     <trix-editor class="trix-content" input="x"></trix-editor>
                 </div>
                 <div class="form-group">
@@ -34,7 +37,7 @@
                     <input type="file" name="image" id="" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create Post" class="btn btn-success">
+                    <input type="submit" value="{{isset($post)? 'Update Post': 'Create Post'}}" class="btn btn-success">
                 </div>
             </form>
         </div>
