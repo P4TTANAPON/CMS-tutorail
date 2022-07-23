@@ -17,7 +17,7 @@
             <form action="{{isset($category)? route('categories.update',$category->id) : route('categories.store')}}" method="post">
                 @csrf
                 @if (isset($category))
-                    @method('put');
+                    @method('put')
                 @endif
                 <div class="form-group">
                     <label for="">Name</label>
