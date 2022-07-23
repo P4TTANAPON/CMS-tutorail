@@ -8,33 +8,41 @@
             Post
         </div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th></th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    @foreach ($posts as $post)
-                        <tr>
-                            <td>
-                                <img src="storage/{{$post->image}}" alt="" width="80px" height="80px">
-                            </td>
-                            <td>{{$post->title}}</td>
-                            <td>
-                                <a href="#" class="btn btn-info btn-sm">Edit</a>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            @if ($posts->count()>0)
+                <table class="table">
+                    <thead>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($posts as $post)
+                            <tr>
+                                <td>
+                                    <img src="storage/{{$post->image}}" alt="" width="80px" height="80px">
+                                </td>
+                                <td>{{$post->title}}</td>
+                                <td>
+                                    <a href="#" class="btn btn-info btn-sm">Edit</a>
+                                </td>
+                                <td>
+                                    <form class="delete_form" action="{{route('posts.destroy',$post->id)}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="submit" name="" value="Delete" class="btn btn-danger btn-sm">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+            <h3 class="text-center">No Post</h3>
+            @endif
         </div>
     </div>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.delete_form').on('submit',function(){
@@ -45,7 +53,7 @@
                 }
             })
         })
-    </script> --}}
+    </script>
 @endsection
 
 
