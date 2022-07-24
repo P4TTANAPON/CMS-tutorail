@@ -120,6 +120,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->deleteImage();
+        $post->tags()->detach($post->post_id);
         $post->delete();
         Session()->flash('success','Delete post complete.');
         return redirect(route('posts.index'));
