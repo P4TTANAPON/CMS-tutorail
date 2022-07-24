@@ -5,7 +5,33 @@
             User
         </div>
         <div class="card-body">
-            
+            @if ($users->count()>0)
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                @if (!$user->isAdmin())
+                                    <td>
+                                        <form class="" action="{{route('users.makeAdmin',$user->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" name="button" class="btn btn-primary btn-sm">Make admin</button>
+                                        </form>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <h3 class="text-center">No User</h3>
+            @endif
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
