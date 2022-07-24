@@ -23,7 +23,7 @@
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
 </head>
 <body>
     <div id="app">
@@ -93,6 +93,11 @@
                                 <li class="list-group-item">
                                     <a href="{{route('tags.index')}}">Tag</a>
                                 </li>
+                                @if (auth()->user()->isAdmin())
+                                    <li class="list-group-item">
+                                        <a href="{{route('users.index')}}">User</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="col-md-8">
