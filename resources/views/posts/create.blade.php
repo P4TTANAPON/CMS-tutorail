@@ -50,6 +50,22 @@
                         @endforeach
                     </select>
                 </div>
+                @if ($tags->count()>0)
+                    <div class="form-group">
+                        <label for="tag">Tag</label>
+                        <select class="form-control" name="tags[]" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{$tag->id}}" 
+                                    @isset($post)
+                                        @if ($post->hasTag($tag->id))
+                                            selected
+                                        @endif
+                                    @endisset
+                                >{{$tag->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
                 <div class="form-group">
                     <input type="submit" value="{{isset($post)? 'Update Post': 'Create Post'}}" class="btn btn-success">
                 </div>
